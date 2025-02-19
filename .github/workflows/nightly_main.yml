@@ -1,4 +1,4 @@
-name: Build vLLM Images (nightly & latest tag)
+name: Build vLLM Images (nightly)
 
 on:
   schedule:
@@ -50,4 +50,4 @@ jobs:
           platforms: ${{ matrix.target.platform }}
           push: true
           tags: |
-            uptospace/vllm:${{ matrix.target.name }}-nightly
+            uptospace/vllm:nightly-${{ matrix.target.name }}
