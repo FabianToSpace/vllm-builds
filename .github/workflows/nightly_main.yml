@@ -50,4 +50,4 @@ jobs:
           platforms: ${{ matrix.target.platform }}
           push: true
           tags: |
-            uptospace/unsloth:${{ matrix.target.name }}-nightly
+            uptospace/vllm:${{ matrix.target.name }}-nightly
