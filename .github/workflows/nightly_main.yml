@@ -18,6 +18,12 @@ jobs:
           - dockerfile: Dockerfile.arm
             name: arm
             platform: linux/arm64
+          - dockerfile: Dockerfile.rocm
+            name: amd
+            platform: linux/amd64
+          - dockerfile: Dockerfile.tpu
+            name: tpu
+            platform: linux/amd64
           
     steps:
       - name: Check code
