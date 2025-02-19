@@ -24,13 +24,6 @@ jobs:
     steps:
       - name: Check code
         uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-
-      - name: Configure git for committing
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
 
       - name: Clone vllm repo
         run: |
@@ -52,7 +45,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./vllm
-          file: ${{ matrix.target.dockerfile }}
+          file: ./vllm/${{ matrix.target.dockerfile }}
           platforms: ${{ matrix.target.platform }}
           push: true
           tags: |
