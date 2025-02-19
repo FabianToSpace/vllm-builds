@@ -27,6 +27,7 @@ jobs:
         id: checkout
         run: |
           git clone https://github.com/vllm-project/vllm.git vllm
+          cd vllm
           LATEST_TAG=$(git describe --tags --abbrev=0)
           git checkout "tags/$LATEST_TAG" -b latest
           echo "latest_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
