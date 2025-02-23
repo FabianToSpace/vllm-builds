@@ -58,7 +58,7 @@ jobs:
         with:
           context: .
           platforms: ${{ matrix.target.platform }}
-          build-args: ${{ matrix.target.baseimage }}
+          build-args: BASE_IMAGE=${{ matrix.target.name == 'nvidia' && matrix.target.baseimage || join([matrix.target.baseimage,steps.checkout.outputs.latest_tag], ':') }}
           push: true
           tags: |
-            uptospace/vllm:${{steps.checkout.outputs.latest_tag}}-${{ matrix.target.name }}
+            uptospace/vllm:${{steps.checkout.outputs.latest_tag}}-runai-${{ matrix.target.name }}
