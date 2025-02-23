@@ -62,4 +62,4 @@ jobs:
           build-args: BASE_IMAGE=${{ matrix.target.name == 'nvidia' && matrix.target.baseimage || format('{0}:{1}-{2}', matrix.target.baseimage, steps.checkout.outputs.latest_tag, matrix.target.name) }}
           push: true
           tags: |
-            uptospace/vllm:${{ matrix.target.name == 'nvidia' && steps.checkout.outputs.latest_tag || format('{0}-{1}, steps.checkout.outputs.latest_tag, matrix.target.name) }}-runai
+            uptospace/vllm:${{ matrix.target.name == 'nvidia' && steps.checkout.outputs.latest_tag || format('{0}-{1}', steps.checkout.outputs.latest_tag, matrix.target.name) }}-runai
