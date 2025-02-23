@@ -48,6 +48,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
+          file: Dockerfile.runai
           platforms: ${{ matrix.target.platform }}
           build-args: ${{ matrix.target.baseimage }}
           push: true
