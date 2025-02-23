@@ -1,4 +1,4 @@
-name: Build vLLM Images (nightly)
+name: Build vLLM runai Images (nightly)
 
 on:
   schedule:
