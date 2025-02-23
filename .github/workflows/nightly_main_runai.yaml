@@ -53,4 +53,4 @@ jobs:
           build-args: ${{ matrix.target.baseimage }}
           push: true
           tags: |
-            uptospace/vllm:nightly-runai-${{ matrix.target.name }}
+            uptospace/vllm:nightly${{ matrix.target.name == 'nvidia' && '' || format('-{0}', matrix.target.name) }}-runai
