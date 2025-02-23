@@ -1,0 +1,7 @@
+ARG BASE_IMAGE=uptospace/vllm
+
+FROM $BASE_IMAGE
+
+RUN pip install vllm[runai]
+
+ENTRYPOINT ["python3", "-m", "vllm.entrypoints.openai.api_server"]
