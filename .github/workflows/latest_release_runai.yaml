@@ -12,19 +12,19 @@ jobs:
       fail-fast: false
       matrix:
         target:
-          - baseimage: uptospace/vllm:nightly-cpu
+          - baseimage: uptospace/vllm
             name: cpu
             platform: linux/amd64
-          - baseimage: uptospace/vllm:nightly-arm
+          - baseimage: uptospace/vllm
             name: arm
             platform: linux/arm64
           - baseimage: vllm/vllm-openai
             name: nvidia
             platform: linux/amd64
-          - baseimage: uptospace/vllm:nightly-amd
+          - baseimage: uptospace/vllm
             name: amd
             platform: linux/amd64
-          - baseimage: uptospace/vllm:nightly-tpu
+          - baseimage: uptospace/vllm
             name: tpu
             platform: linux/amd64
           
@@ -59,7 +59,7 @@ jobs:
           context: .
           file: Dockerfile.runai
           platforms: ${{ matrix.target.platform }}
-          build-args: BASE_IMAGE=${{ matrix.target.name == 'nvidia' && matrix.target.baseimage || format('{0}:{1}', matrix.target.baseimage, steps.checkout.outputs.latest_tag) }}
+          build-args: BASE_IMAGE=${{ matrix.target.name == 'nvidia' && matrix.target.baseimage || format('{0}:{1}-{2}', matrix.target.baseimage, steps.checkout.outputs.latest_tag, matrix.target.name) }}
           push: true
           tags: |
             uptospace/vllm:${{steps.checkout.outputs.latest_tag}}-runai-${{ matrix.target.name }}
