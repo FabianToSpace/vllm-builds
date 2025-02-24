@@ -15,17 +15,8 @@ jobs:
           - baseimage: uptospace/vllm:nightly-cpu
             name: cpu
             platform: linux/amd64
-          - baseimage: uptospace/vllm:nightly-arm
-            name: arm
-            platform: linux/arm64
           - baseimage: uptospace/vllm:nightly
             name: nvidia
-            platform: linux/amd64
-          - baseimage: uptospace/vllm:nightly-amd
-            name: amd
-            platform: linux/amd64
-          - baseimage: uptospace/vllm:nightly-tpu
-            name: tpu
             platform: linux/amd64
           
     steps:
