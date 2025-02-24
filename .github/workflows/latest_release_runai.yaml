@@ -18,7 +18,7 @@ jobs:
           - baseimage: uptospace/vllm
             name: arm
             platform: linux/arm64
-          - baseimage: vllm/vllm-openai
+          - baseimage: uptospace/vllm
             name: nvidia
             platform: linux/amd64
           - baseimage: uptospace/vllm
