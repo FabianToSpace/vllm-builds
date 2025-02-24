@@ -18,7 +18,7 @@ jobs:
           - baseimage: uptospace/vllm:nightly-arm
             name: arm
             platform: linux/arm64
-          - baseimage: vllm/vllm-openai:latest
+          - baseimage: uptospace/vllm:nightly
             name: nvidia
             platform: linux/amd64
           - baseimage: uptospace/vllm:nightly-amd
@@ -50,7 +50,7 @@ jobs:
           context: .
           file: Dockerfile.runai
           platforms: ${{ matrix.target.platform }}
-          build-args: ${{ matrix.target.baseimage }}
+          build-args: BASE_IMAGE=${{ matrix.target.baseimage }}
           push: true
           tags: |
             uptospace/vllm:nightly${{ matrix.target.name == 'nvidia' && '' || format('-{0}', matrix.target.name) }}-runai
