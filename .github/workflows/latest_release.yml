@@ -12,6 +12,9 @@ jobs:
       fail-fast: false
       matrix:
         target:
+          - dockerfile: Dockerfile
+            name: nvidia
+            platform: linux/amd64
           - dockerfile: Dockerfile.cpu
             name: cpu
             platform: linux/amd64
@@ -58,4 +61,5 @@ jobs:
           platforms: ${{ matrix.target.platform }}
           push: true
           tags: |
-            uptospace/vllm:${{steps.checkout.outputs.latest_tag}}-${{ matrix.target.name }}
+            uptospace/vllm:${{steps.checkout.outputs.latest_tag}}${{ matrix.target.name == 'nvidia' && '' || format('-{0}', matrix.target.name) }}
+
