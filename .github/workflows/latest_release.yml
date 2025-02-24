@@ -56,5 +56,16 @@ jobs:
           platforms: ${{ matrix.target.platform }}
           push: true
           tags: |
-            uptospace/vllm:${{steps.checkout.outputs.latest_tag}}${{ matrix.target.name == 'nvidia' && '' || format('-{0}', matrix.target.name) }}
+            uptospace/vllm:${{ steps.checkout.outputs.latest_tag }}-${{ matrix.target.name }}
+            
+      - name: Pull and re-tag/push nvidia image
+        if: ${{ matrix.target.name == 'nvidia' }}
+        run: |
+          echo "Pulling official vllm/vllm-openai:${{ steps.checkout.outputs.latest_tag }}..."
+          docker pull vllm/vllm-openai:${{ steps.checkout.outputs.latest_tag }}
+          echo "Tagging as uptospace/vllm:${{ steps.checkout.outputs.latest_tag }}..."
+          docker tag vllm/vllm-openai:${{ steps.checkout.outputs.latest_tag }} uptospace/vllm:${{ steps.checkout.outputs.latest_tag }}
+          echo "Pushing uptospace/vllm:${{ steps.checkout.outputs.latest_tag }}..."
+          docker push uptospace/vllm:${{ steps.checkout.outputs.latest_tag }}
+
 
