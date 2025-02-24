@@ -18,17 +18,12 @@ jobs:
           - dockerfile: Dockerfile.cpu
             name: cpu
             platform: linux/amd64
-          - dockerfile: Dockerfile.arm
-            name: arm
-            platform: linux/arm64
-          - dockerfile: Dockerfile.rocm
-            name: amd
-            platform: linux/amd64
-          - dockerfile: Dockerfile.tpu
-            name: tpu
-            platform: linux/amd64
           
     steps:
+      - name: Remove unnecessary files
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf "$AGENT_TOOLSDIRECTORY"
       - name: Check code
         uses: actions/checkout@v4
 
