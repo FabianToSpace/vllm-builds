@@ -18,15 +18,6 @@ jobs:
           - dockerfile: Dockerfile.cpu
             name: cpu
             platform: linux/amd64
-          - dockerfile: Dockerfile.arm
-            name: arm
-            platform: linux/arm64
-          - dockerfile: Dockerfile.rocm
-            name: amd
-            platform: linux/amd64
-          - dockerfile: Dockerfile.tpu
-            name: tpu
-            platform: linux/amd64
           
     steps:
       - name: Check code
@@ -49,6 +40,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build and push
+        if: ${{ matrix.target.name != 'nividia' }}
         uses: docker/build-push-action@v6
         with:
           context: ./vllm
@@ -56,4 +48,15 @@ jobs:
           platforms: ${{ matrix.target.platform }}
           push: true
           tags: |
-            uptospace/vllm:nightly${{ matrix.target.name == 'nvidia' && '' || format('-{0}', matrix.target.name) }}
+            uptospace/vllm:nightly-${{ matrix.target.name }}
+
+      - name: Pull and re-tag/push (nividia)
+        if: ${{ matrix.target.name == 'nividia' }}
+        run: |
+          echo "Pulling vllm/vllm-openai:nightly..."
+          docker pull vllm/vllm-openai:nightly
+          echo "Tagging image as uptospace/vllm:nightly..."
+          docker tag vllm/vllm-openai:nightly uptospace/vllm:nightly
+          echo "Pushing uptospace/vllm:nightly..."
+          docker push uptospace/vllm:nightly
+
