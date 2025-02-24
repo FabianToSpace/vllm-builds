@@ -53,10 +53,10 @@ jobs:
       - name: Pull and re-tag/push (nividia)
         if: ${{ matrix.target.name == 'nividia' }}
         run: |
-          echo "Pulling vllm/vllm-openai:nightly..."
-          docker pull vllm/vllm-openai:nightly
+          echo "Pulling vllm/vllm-openai:latest..."
+          docker pull vllm/vllm-openai:latest
           echo "Tagging image as uptospace/vllm:nightly..."
-          docker tag vllm/vllm-openai:nightly uptospace/vllm:nightly
+          docker tag vllm/vllm-openai:latest uptospace/vllm:nightly
           echo "Pushing uptospace/vllm:nightly..."
           docker push uptospace/vllm:nightly
 
